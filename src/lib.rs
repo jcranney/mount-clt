@@ -1,3 +1,7 @@
+//! # mount command line tool
+//! A simple tool for controlling my telescope mount over serial
+
+/// Module for talking to the arduino uno via serial
 pub mod arduino {
     use std::io::Write;
     use clap::ValueEnum;
