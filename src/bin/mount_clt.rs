@@ -64,10 +64,8 @@ fn main() -> Result<()> {
             value,
         } => {
             let message = Message::new(motor, enabled, direction, buffer, value);
-            match message.craft_message(true) {
-                Some(msg) => send_bytes(&msg, device)?,
-                None => eprintln!("message unsafe: {:?}", message),
-            };
+            let msg = message.craft_message(true)?;
+            send_bytes(&msg, device)?;
         }
         Commands::Speed {
             motor,
@@ -75,10 +73,8 @@ fn main() -> Result<()> {
             value,
         } => {
             let message = Message::new(motor, Enabled::Enabled, direction, Buffer::Period, value);
-            match message.craft_message(true) {
-                Some(msg) => send_bytes(&msg, device)?,
-                None => eprintln!("message unsafe: {:?}", message),
-            };
+            let msg = message.craft_message(true)?;
+            send_bytes(&msg, device)?;
         }
         Commands::Stop { motor } => {
             let message = Message::new(
@@ -88,10 +84,8 @@ fn main() -> Result<()> {
                 Buffer::Period,
                 0xFFFF,
             );
-            match message.craft_message(true) {
-                Some(msg) => send_bytes(&msg, device)?,
-                None => eprintln!("message unsafe: {:?}", message),
-            };
+            let msg = message.craft_message(true)?;
+            send_bytes(&msg, device)?;
         }
     };
     Ok(())
